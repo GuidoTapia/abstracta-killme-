@@ -403,25 +403,12 @@ public:
 
 int main(){
     int n,m;
-    string mensaje="1234567890abcdefghijklmnopqrstuvwxyz., ?¿123456789a";
+    string mensaje="12345678";
     cout<<"Mensaje a encriptar:\n"<<mensaje<<"\nMensaje encriptado:\n";
-    cripto algo(2,10);
+    cripto algo(2,2);
     string cipher=algo.encriptamiento(mensaje);
     cout<<cipher;
     cout<<"\nMensaje desencriptado:\n";
     cout<<algo.desencriptamiento(cipher);
-    //cout << "Hello world!" << endl;
     return 0;
 }
-/*for(j=posMensaje;j<posMensaje+longitud[1];posMensaje++){
-                    if(j==elem){
-                        if(cont==0){
-                            vi=0;
-                            k=-1;
-                            elem+=(n-puntoInicio-1);
-                        }else if(cont==1)
-                    }
-                    pos+=vi;
-                    aux.insert(pos,1,mensaje[j]);
-                    pos+=k;
-                }*/
