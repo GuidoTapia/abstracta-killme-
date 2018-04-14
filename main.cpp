@@ -21,11 +21,12 @@ public:
             particiones[i]=0;
         }
         for(i=0;i<m;i++){
-            suma+=longitud[i%m];
+            suma+=longitud[i%4];
         }
         for(i=mensaje.length();i<=suma;i++){
             mensaje+="x";
         }
+        //cout<<"Mensaje\n"<<mensaje<<"\n";
         for(i=0;i<m;i++){
             longi=i%4;
             aux="";
@@ -67,6 +68,7 @@ public:
                         particiones[k]+=n;
                 }
                 posMensaje+=longitud[0];
+                //cout<<"Mensaje\n"<<mensajeSalida<<"\n";
             }
             else if(longi==1){
                 cont=-1;
@@ -124,6 +126,7 @@ public:
                 mensajeSalida.insert(particiones[j],aux.substr(aux.length()-2,2));
                 for(k=j;k<n;k++)
                     particiones[k]+=2;
+                //cout<<"Mensaje\n"<<mensajeSalida<<"\n";
             }
             else if(longi==2){
                 k=1;
@@ -170,6 +173,7 @@ public:
                         particiones[k]+=n;
                 }
                 posMensaje+=longitud[0];
+                //cout<<"Mensaje\n"<<mensajeSalida<<"\n";
             }
             else if(longi==3){
                 pos=0;
@@ -200,6 +204,7 @@ public:
                 mensajeSalida.insert(particiones[n-1],aux.substr(aux.length()-2,2));
                 particiones[n-1]+=2;
                 posMensaje+=longitud[3];
+                //cout<<"Mensaje\n"<<mensajeSalida<<"\n";
             }
         }
         return mensajeSalida;
@@ -207,6 +212,7 @@ public:
     string desencriptamiento(string mensaje){
         int particiones[n];
         particiones[0]=0;
+        cout<<particiones[0]<<endl;
         int puntoInicio=(n-1)/2;
         for(int j=1;j<n;j++){
             particiones[j]=particiones[j-1];
@@ -221,7 +227,7 @@ public:
                         if(j==1){
                             particiones[j]+=2;
                         }else{
-                        particiones[j]+=3;
+                            particiones[j]+=3;
                         }
                     }
                 }else if(aux==1){
@@ -232,7 +238,7 @@ public:
                             particiones[j]++;
                         }
                     }else{
-                        if(i<puntoInicio){
+                        if(j<puntoInicio+1){
                             particiones[j]+=2;
                         }else{
                             particiones[j]+=3;
@@ -245,7 +251,7 @@ public:
         string mensajeFinal;
         int longitud[]={n*n,(n*2)+(n/2)-1,n*n,(n*3)-2};
         int longi;
-        int paso[]={4,-1,-4,1};
+        int paso[]={n,-1,-n,1};
 
         for(int i=0;i<m;i++){
             longi=i%4;
@@ -255,7 +261,7 @@ public:
                 int vi=0;
                 int mod=paso[vi];
                 int cont=0;
-                int elem=4;
+                int elem=n;
                 bool flag=true;
                 for(int j=0;j<n;j++){
                     aux+=mensaje.substr(particiones[j],n);
@@ -281,7 +287,6 @@ public:
                         cont=0;
                     }
                 }
-
             }
 
             else if(longi==1){
@@ -301,10 +306,36 @@ public:
                         particiones[j]+=3;
                     }
                 }
-                cout <<endl<<aux<<endl;
+                int pos=(puntoInicio*2)-4;
+                for(int j=0;j<n-puntoInicio;j++){
+                    pos+=3;
+                    mensajeFinal+=aux[pos];
+                }
+                for(int j=n-1;j>1;j--){
+                    if(j<puntoInicio||j==n-1){
+                        pos-=2;
+                    }else{
+                        pos-=3;
+                    }
+                    mensajeFinal+=aux[pos];
+                }
+                if(1<puntoInicio){
+                    pos--;
+                }else{
+                    pos-=2;
+                }
+                mensajeFinal+=aux[pos];
+                for(int j=0;j<n-1;j++){
+                    if(j<puntoInicio-1||j==n-2){
+                        pos+=2;
+                    }else{
+                        pos+=3;
+                    }
+                    mensajeFinal+=aux[pos];
+                }
             }
             else if(longi==2){
-                int pos=5;
+                int pos=(n*puntoInicio)+puntoInicio;
                 int vi=0;
                 int mod=paso[vi];
                 int cont=0;
@@ -314,7 +345,8 @@ public:
                     aux+=mensaje.substr(particiones[j],n);
                     particiones[j]+=n;
                 }
-                for(int j=0;j<longitud[0];j++){
+                mensajeFinal+=aux[pos];
+                for(int j=0;j<longitud[0]-1;j++){
                     pos+=mod;
                     mensajeFinal+=aux[pos];
                     cont++;
@@ -334,6 +366,7 @@ public:
                         cont=0;
                     }
                 }
+
             }
             else{
                 aux+=mensaje.substr(particiones[0],2);
@@ -371,9 +404,11 @@ public:
 int main(){
     int n,m;
     string mensaje="1234567890abcdefghijklmnopqrstuvwxyz., ?¿123456789a";
-    cripto algo(4,5);
+    cout<<"Mensaje a encriptar:\n"<<mensaje<<"\nMensaje encriptado:\n";
+    cripto algo(2,10);
     string cipher=algo.encriptamiento(mensaje);
     cout<<cipher;
+    cout<<"\nMensaje desencriptado:\n";
     cout<<algo.desencriptamiento(cipher);
     //cout << "Hello world!" << endl;
     return 0;
