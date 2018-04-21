@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1524336109 source:e:\abstracta 1-v2\main.cpp
+	<iostream>
+	"cripto.h"
+	<fstream>
+
+1523727363 source:e:\abstracta 1-v2\cripto.cpp
+	"cripto.h"
+	<iostream>
+
+1523083829 e:\abstracta 1-v2\cripto.h
+	<iostream>
+
