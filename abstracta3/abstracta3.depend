@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1524891679 source:e:\abstracta3\main.cpp
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	"affin.h"
+	"affin.cpp"
+
+1524891694 e:\abstracta3\affin.h
+
+1524891703 e:\abstracta3\affin.cpp
+	"affin.h"
+
